@@ -1,6 +1,6 @@
 # VirtualWhiteBoard
 
-An ASP.NET Core SignalR implementation of a whiteboard. The production version of this app in hosted in Azure and uses:
+An ASP.NET Core SignalR implementation of a whiteboard, inspired by https://github.com/aspnet/SignalR-samples/tree/master/WhiteBoard. The production version of this app is hosted in Azure and uses:
 
 - Azure App Service
 - Azure Key Vault
