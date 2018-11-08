@@ -3,11 +3,16 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace VirtualWhiteBoard.Hubs
 {
-    public class DrawHub : Hub
+    public class DrawHub : Hub<IDrawClient>
     {
-        public Task Draw(int prevX, int prevY, int currentX, int currentY, string color)
+        public void Draw(int prevX, int prevY, int currentX, int currentY, string color)
         {
-            return Clients.Others.SendAsync("draw", prevX, prevY, currentX, currentY, color);
+            Clients.Others.Draw(prevX, prevY, currentX, currentY, color);
         }
+    }
+
+    public interface IDrawClient
+    {
+        Task Draw(int prevX, int prevY, int currentX, int currentY, string color);
     }
 }
