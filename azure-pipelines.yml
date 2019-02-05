@@ -10,8 +10,21 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 variables:
-  buildConfiguration: 'Release'
+  BuildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+- script: dotnet build --configuration $(BuildConfiguration)
+  displayName: Build
+
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: -c $(BuildConfiguration) --no-build --output $(Build.ArtifactStagingDirectory)
+    zipAfterPublish: True
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Package Artifacts
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
