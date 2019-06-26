@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
-using VirtualWhiteBoard.KeyVault;
+using Microsoft.Extensions.Configuration.AzureKeyVault;
 
 namespace VirtualWhiteBoard
 {
@@ -16,12 +16,10 @@ namespace VirtualWhiteBoard
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                    .ConfigureAppConfiguration(config =>
-                   {
-                       ConfigureKeyVault(ref config);
-                   })
+                       ConfigureKeyVault(config))
                    .UseStartup<Startup>();
 
-        private static void ConfigureKeyVault(ref IConfigurationBuilder config)
+        private static void ConfigureKeyVault(IConfigurationBuilder config)
         {
             bool.TryParse(Environment.GetEnvironmentVariable(
                 "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONENABLED"),
@@ -39,7 +37,7 @@ namespace VirtualWhiteBoard
                     "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONVAULT");
 
                 config.AddAzureKeyVault(
-                    keyVaultEndpoint, keyVaultClient, new KeyVaultSecretManager());
+                    keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
             }
         }
     }
