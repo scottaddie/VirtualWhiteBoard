@@ -1,25 +1,14 @@
 ﻿using System;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.AzureKeyVault;
 
-namespace VirtualWhiteBoard
+namespace VirtualWhiteBoard.Extensions
 {
-    public class Program
+    public static class ConfigurationBuilderExtensions
     {
-        public static void Main(string[] args) =>
-            CreateWebHostBuilder(args).Build().Run();
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                   .ConfigureAppConfiguration(config =>
-                       ConfigureKeyVault(config))
-                   .UseStartup<Startup>();
-
-        private static void ConfigureKeyVault(IConfigurationBuilder config)
+        public static void ConfigureKeyVault(this IConfigurationBuilder config)
         {
             bool.TryParse(Environment.GetEnvironmentVariable(
                 "ASPNETCORE_HOSTINGSTARTUP__KEYVAULT__CONFIGURATIONENABLED"),
