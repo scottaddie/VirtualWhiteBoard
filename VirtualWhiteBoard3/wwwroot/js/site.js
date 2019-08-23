@@ -5,7 +5,7 @@ const canvasY = canvas.offsetTop;
 let last_mouseX = last_mouseY = mouseX = mouseY = 0;
 let isMouseDown = false;
 
-canvas.addEventListener('mousedown', (e) => {
+canvas.addEventListener('mousedown', e => {
     last_mouseX = mouseX = parseInt(e.clientX - canvasX);
     last_mouseY = mouseY = parseInt(e.clientY - canvasY);
     isMouseDown = true;
@@ -15,7 +15,7 @@ canvas.addEventListener('mouseup', () => {
     isMouseDown = false;
 });
 
-canvas.addEventListener('mousemove', (e) => {
+canvas.addEventListener('mousemove', e => {
     mouseX = parseInt(e.clientX - canvasX);
     mouseY = parseInt(e.clientY - canvasY);
     const color = document.getElementById('color').value;
@@ -42,13 +42,13 @@ connection.on('draw', (prevX, prevY, x, y, color) => {
     drawCanvas(prevX, prevY, x, y, color);
 });
 
-connection.onreconnecting((err) => {
+connection.onreconnecting(err => {
     console.assert(connection.state === signalR.HubConnectionState.Reconnecting);
     console.error('Connection lost. Attempting reconnection.', err);
 });
 
 connection.start()
-    .catch((err) => console.error('Unable to start connection.', err));
+    .catch(err => console.error('Unable to start connection.', err));
 
 function drawCanvas(prevX, prevY, x, y, color) {
     ctx.beginPath();

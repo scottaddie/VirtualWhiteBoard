@@ -5,7 +5,7 @@ const canvasY = canvas.offsetTop;
 let last_mouseX = last_mouseY = mouseX = mouseY = 0;
 let isMouseDown = false;
 
-canvas.addEventListener('mousedown', (e) => {
+canvas.addEventListener('mousedown', e => {
     last_mouseX = mouseX = parseInt(e.clientX - canvasX);
     last_mouseY = mouseY = parseInt(e.clientY - canvasY);
     isMouseDown = true;
@@ -15,7 +15,7 @@ canvas.addEventListener('mouseup', () => {
     isMouseDown = false;
 });
 
-canvas.addEventListener('mousemove', (e) => {
+canvas.addEventListener('mousemove', e => {
     mouseX = parseInt(e.clientX - canvasX);
     mouseY = parseInt(e.clientY - canvasY);
     const color = document.getElementById('color').value;
